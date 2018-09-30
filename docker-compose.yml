@@ -1,0 +1,35 @@
+version: '3.6'
+
+services:
+  website:
+    image: gcr.io/ashanaakh-dev/rest-website:0.1.0
+    restart: always
+    depends_on:
+      - proxy
+    expose:
+      - "8080"
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: palestinenights.com, www.palestinenights.com;'
+      traefik.port: 8080
+
+  proxy:
+    image: traefik
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/traefik.toml:/etc/traefik/traefik.toml:ro
+      - ./config/acme.json:/acme.json
+    networks:
+      default:
+        aliases:
+          - monitor.palestinenights.com
+          - www.palestinenights.com
+          - palestinenights.com
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: monitor.palestinenights.com'
+      traefik.port: 8080
