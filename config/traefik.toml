@@ -1,7 +1,7 @@
-debug = true
-
-logLevel = "ERROR"
+logLevel = "INFO"
 defaultEntryPoints = ["https","http"]
+
+[api]
 
 [entryPoints]
   [entryPoints.http]

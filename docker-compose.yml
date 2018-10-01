@@ -26,10 +26,10 @@ services:
     networks:
       default:
         aliases:
-          - status.palestinenights.com
           - www.palestinenights.com
           - palestinenights.com
+          - dashboard.palestinenights.com
     labels:
       traefik.enable: true
-      traefik.frontend.rule: 'Host: status.palestinenights.com'
+      traefik.frontend.rule: 'Host: dashboard.palestinenights.com'
       traefik.port: 8080
