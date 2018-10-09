@@ -2,16 +2,14 @@ version: '3.6'
 
 services:
   website:
-    image: gcr.io/ashanaakh-dev/rest-website:0.1.0
+    image: ashanaakh/palestine-nights-website:0.3.0
     restart: always
     depends_on:
       - proxy
-    expose:
-      - "8080"
     labels:
       traefik.enable: true
-      traefik.frontend.rule: 'Host: palestinenights.com, www.palestinenights.com;'
-      traefik.port: 8080
+      traefik.frontend.rule: 'Host: www.palestinenights.com;'
+      traefik.port: 80
 
   proxy:
     image: traefik
