@@ -10,6 +10,9 @@ defaultEntryPoints = ["https","http"]
     entryPoint = "https"
   [entryPoints.https]
   address = ":443"
+    [entryPoints.https.redirect]
+      regex = "^https://palestinenights.com/(.*)"
+      replacement = "https://www.palestinenights.com/$1"
   [entryPoints.https.tls]
 
 [retry]
