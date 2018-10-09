@@ -12,3 +12,6 @@ start: proxy
 
 proxy:
 	@touch config/acme.json && chmod 0600 config/acme.json
+
+down:
+	$(COMPOSE) down
