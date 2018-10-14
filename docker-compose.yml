@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   website:
-    image: ashanaakh/palestine-nights-website:0.3.0
+    image: ashanaakh/palestine-nights-website:0.4.0
     restart: always
     depends_on:
       - proxy
@@ -13,7 +13,7 @@ services:
       traefik.port: 80
 
   places:
-    image: ashanaakh/places:0.1.0
+    image: ashanaakh/places
     restart: always
     depends_on:
       - proxy
