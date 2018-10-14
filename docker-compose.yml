@@ -6,10 +6,21 @@ services:
     restart: always
     depends_on:
       - proxy
+      - places
     labels:
       traefik.enable: true
       traefik.frontend.rule: 'Host: palestinenights.com, www.palestinenights.com;'
       traefik.port: 80
+
+  places:
+    image: ashanaakh/places:0.1.0
+    restart: always
+    depends_on:
+      - proxy
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: places.palestinenights.com;'
+      traefik.port: 8000
 
   proxy:
     image: traefik
