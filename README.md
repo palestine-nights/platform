@@ -7,5 +7,5 @@ Currently deployed on DigitalOcean.
 ## Usage
 
 ```sh
-make
+$> make start
 ```
