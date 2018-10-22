@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   website:
-    image: ashanaakh/palestine-nights-website:0.4.0
+    image: palestinenights/website
     restart: always
     depends_on:
       - proxy
