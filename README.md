@@ -6,6 +6,14 @@ Currently deployed on DigitalOcean.
 
 ## Usage
 
+Start platform
+
 ```sh
-$> make start
+$> make up
+```
+
+Stop platform
+
+```sh
+$> make down
 ```

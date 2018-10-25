@@ -3,7 +3,7 @@ version: '3.6'
 services:
   website:
     image: palestinenights/website
-    restart: always
+    restart: on-failure
     depends_on:
       - proxy
       - places
@@ -14,24 +14,32 @@ services:
 
   places:
     image: ashanaakh/places
-    restart: always
+    restart: on-failure
     depends_on:
       - proxy
+    env_file:
+     - ./config/places.env
     labels:
       traefik.enable: true
       traefik.frontend.rule: 'Host: places.palestinenights.com;'
-      traefik.port: 8000
+      traefik.port: 8080
+
+  redis:
+    image: redis
+    restart: on-failure
+    volumes:
+       - redis-data:/data
 
   proxy:
     image: traefik
-    restart: always
+    restart: on-failure
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./config/traefik.toml:/etc/traefik/traefik.toml:ro
       - ./config/acme.json:/acme.json
+      - ./config/traefik.toml:/etc/traefik/traefik.toml:ro
     networks:
       default:
         aliases:
@@ -42,3 +50,6 @@ services:
       traefik.enable: true
       traefik.frontend.rule: 'Host: dashboard.palestinenights.com'
       traefik.port: 8080
+
+volumes:
+  redis-data:
