@@ -9,20 +9,41 @@ services:
       - places
     labels:
       traefik.enable: true
-      traefik.frontend.rule: 'Host: palestinenights.com, www.palestinenights.com;'
+      traefik.frontend.rule: 'Host: palestinenights.com, www.palestinenights.com'
       traefik.port: 80
+
+  backend:
+    image: palestinenights/backend
+    restart: on-failure
+    depends:
+      - proxy
+      - mysql
+    env_file:
+      - ./config/backend.env
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: api.palestinenights.com'
+      traefik.port: 8080
 
   places:
     image: ashanaakh/places
     restart: on-failure
     depends_on:
       - proxy
+      - redis
     env_file:
      - ./config/places.env
     labels:
       traefik.enable: true
-      traefik.frontend.rule: 'Host: places.palestinenights.com;'
+      traefik.frontend.rule: 'Host: places.palestinenights.com'
       traefik.port: 8080
+
+  mysql:
+    image: mysql
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
 
   redis:
     image: redis
@@ -52,4 +73,5 @@ services:
       traefik.port: 8080
 
 volumes:
+  mysql-data:
   redis-data:
