@@ -6,7 +6,9 @@ default: start
 
 up: proxy
 	@$(COMPOSE) up -d website \
+	                  backend \
 	                  places  \
+	                  mysql   \
 	                  redis   \
 	                  proxy
 
