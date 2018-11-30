@@ -15,7 +15,7 @@ services:
   backend:
     image: palestinenights/backend
     restart: on-failure
-    depends:
+    depends_on:
       - proxy
       - mysql
     env_file:
