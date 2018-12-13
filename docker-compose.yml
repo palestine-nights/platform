@@ -12,6 +12,19 @@ services:
       traefik.frontend.rule: 'Host: palestinenights.com, www.palestinenights.com'
       traefik.port: 80
 
+  auth:
+    image: palestinenights/auth
+    restart: on-failure
+    depends_on:
+      - proxy
+      - mysql
+    env_file:
+      - ./config/auth.env
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: auth.palestinenights.com'
+      traefik.port: 8080
+
   backend:
     image: palestinenights/backend
     restart: on-failure
