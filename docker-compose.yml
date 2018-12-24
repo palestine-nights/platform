@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.7'
 
 services:
   website:
@@ -80,10 +80,22 @@ services:
           - www.palestinenights.com
           - palestinenights.com
           - dashboard.palestinenights.com
+          - mail.palestinenights.com
     labels:
       traefik.enable: true
       traefik.frontend.rule: 'Host: dashboard.palestinenights.com'
       traefik.port: 8080
+
+  smtp:
+    image: mwader/postfix-relay
+    ports:
+      - "25:25"
+    environment:
+      POSTFIX_MYHOSTNAME: mail.palestinenights.com
+    # labels:
+    #   traefik.enable: true
+    #   traefik.frontend.rule: 'Host: mail.palestinenights.com'
+    #   traefik.port: 25
 
 volumes:
   mysql-data:
